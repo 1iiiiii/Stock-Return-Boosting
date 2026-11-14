@@ -1,0 +1,11 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# written by notebook 04 (58 MB)
+data/processed/panel.csv

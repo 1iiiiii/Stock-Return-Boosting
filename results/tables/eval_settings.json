@@ -1,0 +1,11 @@
+{
+  "seed": 6400,
+  "top_n": 10,
+  "n_random": 10000,
+  "cost_bps": 10,
+  "periods": 34,
+  "first_day": "2024-01-03",
+  "last_day": "2026-11-03",
+  "stocks": 96,
+  "years": 2.834
+}

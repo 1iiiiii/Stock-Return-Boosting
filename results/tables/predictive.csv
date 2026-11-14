@@ -1,0 +1,7 @@
+model,label,rank_ic_mean,rank_ic_sd,rank_ic_t,share_months_ic_positive,rank_ic_mean_after_first_period,rank_ic_t_after_first_period,r2_oos,top10_minus_average_pp,top10_minus_average_t,hit_rate
+original,Class model,0.045,0.1245,2.1074,0.7059,0.0359,1.8029,-0.0628,0.7139,1.1433,0.5353
+clean,Step 1: new features and target,0.0122,0.1346,0.5294,0.5588,0.0106,0.4459,-0.1208,0.0708,0.0769,0.4971
+long,Step 2: 13 years of training data,0.0004,0.1282,0.0197,0.4706,0.0038,0.1673,-0.0117,1.1628,1.1179,0.5147
+improved,Step 3: tuned and refitted monthly (improved model),0.0243,0.205,0.6908,0.5882,0.025,0.6903,0.0028,1.531,1.0687,0.5
+linear,"Linear regression, same features",0.029,0.2203,0.7668,0.5588,0.0303,0.7794,0.0012,0.8985,0.6541,0.5147
+momentum,12-month momentum rule,0.0412,0.262,0.9168,0.5882,0.0239,0.5592,,1.4095,1.0176,0.5265

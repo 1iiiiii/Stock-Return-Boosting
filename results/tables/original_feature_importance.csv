@@ -1,0 +1,15 @@
+feature,gain_share
+mom_3m,0.112
+high,0.1
+spy_ret,0.098
+low,0.089
+mom_6m,0.086
+vol_1m,0.084
+adjusted,0.082
+close,0.076
+volume,0.066
+open,0.064
+mom_1m,0.061
+ret_5d,0.036
+return,0.024
+excess_ret,0.022

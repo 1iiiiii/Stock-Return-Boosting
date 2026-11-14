@@ -1,0 +1,17 @@
+statistic,value
+months,34
+first_month,2024-01-01
+last_month,2026-10-01
+sharpe_as_scripted_sqrt252,8.835653532981508
+sharpe_monthly_factor_sqrt12,1.928097672823417
+alpha_as_scripted_x252,3.301301501218128
+alpha_monthly_factor_x12,0.15720483339133942
+beta,0.966490582516254
+ml_growth_of_1_end,2.5080502382664807
+spy_line_start,0.9928414224812819
+spy_line_end,1.6449253607999808
+spy_growth_over_test_months,1.692644891276029
+mean_weight_of_largest_holding,0.1864943
+train_rows,36000
+test_rows,67200
+predictors,14

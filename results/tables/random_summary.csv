@@ -1,0 +1,10 @@
+strategy,label,total_return,percentile_total_return,share_random_at_least_as_good,return_to_risk,percentile_return_to_risk
+spy,SPY (S&P 500 ETF),0.6618,49.71,0.5029,1.6862,72.07
+universe,"All 96 stocks, equal weight",0.6855,53.49,0.4651,1.9816,89.54
+original,Class model,1.0941,92.97,0.0703,1.7292,75.16
+clean,Step 1: new features and target,0.6404,46.26,0.5374,0.9112,9.92
+long,Step 2: 13 years of training data,1.3316,98.53,0.0147,1.3556,42.4
+improved,Step 3: tuned and refitted monthly (improved model),1.4962,99.45,0.0055,1.1675,26.13
+linear,"Linear regression, same features",1.0421,90.66,0.0934,0.9605,12.22
+momentum,12-month momentum rule,1.4243,99.13,0.0087,1.1737,26.53
+original_script_weights,"Class model, the script's own weights",1.5075,99.47,0.0053,1.7189,74.44

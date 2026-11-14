@@ -1,0 +1,11 @@
+{
+  "run_date": "2026-11-13",
+  "method": "Yahoo Finance chart endpoint (query1.finance.yahoo.com/v8/finance/chart/<ticker>, interval=1d, from 2010-01-01), one ticker at a time; notebook 01 re-downloads with yfinance when REFETCH = True",
+  "source": "Yahoo Finance",
+  "start": "2010-01-01",
+  "symbols": 98,
+  "rows": 413611,
+  "first": "2010-01-04",
+  "last": "2026-11-12",
+  "note": "BK (Bank of New York Mellon) returned no price history; the company's history is listed under BNY, which is used instead. ^IRX has two fewer trading days than SPY."
+}

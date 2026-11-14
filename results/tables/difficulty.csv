@@ -1,0 +1,9 @@
+statistic,value
+monthly_relative_return_sd_pp,8.575
+improved_forecast_sd_pp,0.344
+noise_to_signal,24.963
+tracking_error_improved_pp,24.534
+years_for_2pt_edge_to_reach_t2,601.893
+improved_active_return_annual_pp,17.901
+years_for_observed_edge_to_reach_t2,7.513
+test_years,2.834
