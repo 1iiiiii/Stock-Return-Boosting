@@ -1,7 +1,4 @@
-# Can gradient boosting pick stocks? The class model, an improved one, and what "outperformed" hides
-
-In AEDS 6400 (Fall 2026) each team ran two $100,000 paper portfolios for two months, one picked on intuition and one picked with indicators from past returns, and the class was given an XGBoost script that predicts 20-day stock returns and reports a backtest that beats the S&P 500. This repository (1) analyses the class experiment, (2) ports the class script to Python exactly as written, (3) improves the model in three steps, and (4) puts every model through one out-of-sample test, January 2024 to November 2026, against the original model, a no-model momentum rule, the S&P 500, an equal-weighted portfolio of the same 96 stocks, and 10,000 random portfolios.
-
+# Can gradient boosting pick stocks? 
 Findings:
 
 - **Class experiment.** 45 teams. Intuition $101,179, indicators $103,087; mean difference +$1,909, paired t = 1.68 (p = 0.10 two-sided, 0.05 one-sided), 95% bootstrap interval −$340 to +$4,109. Indicators finished ahead for 30 of 45 teams. With this spread it would take about 62 teams for a difference of this size to reach t = 1.96.
@@ -22,18 +19,6 @@ Published post: https://1iiiiii.github.io/Personal-Website/blog/posts/post9/
 | `reference/original_XGBoostStockPrediction.R` | the class XGBoost script, unchanged | course materials (Yisroel Cahn) | |
 | `reference/original_stockmarketgameresults.R` | the instructor's analysis of the class results, unchanged | course materials | |
 
-The stock list is the one in the class script. The script calls it 100 companies; it has 96 tickers. `BK` (Bank of New York Mellon) no longer returns a price history on Yahoo Finance, so the same company's history under `BNY` is used.
-
-## Setup
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-Open the notebooks in VS Code with the `.venv` kernel selected. No API keys are needed. Every random draw starts from a fixed seed (6400, the course number), so the tables and figures reproduce exactly.
-
 ## Replication
 
 Run the notebooks in `code/` in order; each reads the previous ones' output. Paths are built from `Path.cwd().parent`, so run them from `code/` (VS Code's default).
@@ -47,20 +32,7 @@ Run the notebooks in `code/` in order; each reads the previous ones' output. Pat
 | `05_evaluate.ipynb` | prices, `calendar.csv`, every `pred_*.csv` | `results/tables/predictive.csv`, `investment.csv`, `ic_by_period.csv`, `period_returns.csv`, `daily_returns.csv`, `daily_returns_net.csv`, `random_portfolios.csv`, `random_summary.csv`, `holdings.csv`, `most_held.csv`, `holdings_overlap.csv`, `active_return_correlation.csv`, `difficulty.csv`, `eval_settings.json` |
 | `06_figures.ipynb` | `results/tables/` | `results/figures/fig1_class_experiment.html`, `fig2_growth.html`, `fig3_random_portfolios.html` (also copied into the post folder when the website repository sits next to this one) |
 
-From the terminal:
-
-```bash
-cd code
-for n in 01_fetch 02_class_experiment 03_original_model 04_improved_model 05_evaluate 06_figures; do
-  jupyter nbconvert --to notebook --execute --inplace $n.ipynb
-done
-```
-
-Notebook 04 takes about 40 seconds; the rest a few seconds each. `data/processed/panel.csv` (58 MB, the features and target for every stock-day) is not committed; notebook 04 writes it.
-
 ### The class model as written (`03_original_model.ipynb`)
-
-A line-by-line port of the R script: prices from January 2022; 14 predictors, which are every column except the date and ticker (open, high, low, close, volume, adjusted close, the day's return, SPY's return, three "momentum" ratios, one-month volatility, a five-day ratio, the return over SPY); target = the return from tomorrow's close to the close 20 days ahead; trained on 6 July 2022 – 29 December 2023 and tested from 2 January 2024; XGBoost with 300 trees, depth 5, learning rate 0.05, minimum child weight 10. On the first trading day of each month it buys the ten highest predictions, weighted by the prediction. R's and Python's XGBoost builds differ in small numerical details, so individual predictions will not match the R script to the last decimal.
 
 What the notebook documents and the later notebooks change:
 
@@ -74,7 +46,7 @@ What the notebook documents and the later notebooks change:
 8. Weights proportional to the prediction concentrate the portfolio.
 9. The 96 tickers were chosen in 2026, so they are companies known to be large today.
 
-### The improvement, one step at a time (`04_improved_model.ipynb`)
+### The improvement (`04_improved_model.ipynb`)
 
 | Model | What changes from the row above |
 |---|---|
@@ -84,8 +56,6 @@ What the notebook documents and the later notebooks change:
 | `improved` | hyperparameters chosen on two validation folds before the test period (2020–21 and 2022–23), scored by rank IC; refitted on each rebalance date on everything known by then. Chosen: 100 trees, depth 2, learning rate 0.01, minimum child weight 20, row and column subsampling 0.7 (validation rank IC 0.046, against 0.027 for the class settings) |
 | `linear` | ordinary least squares on the same features, refitted monthly |
 | `momentum` | no model: rank by the past year's return, skipping the last month |
-
-The test period was not used for any choice. The steps were fixed before the test results were computed and each model was run once.
 
 ### The evaluation (`05_evaluate.ipynb`)
 
@@ -110,8 +80,6 @@ Out of sample, 3 January 2024 – 3 November 2026, before trading costs. Every m
 | Linear regression | 0.029 (0.8) | +0.001 | +104% | 31.0% | 0.83 | 1.65 | +10.7% (0.7) | 36% | +99% | 91% / 12% |
 | 12-month momentum rule | 0.041 (0.9) | | +142% | 29.0% | 1.08 | 1.43 | +16.2% (1.2) | 29% | +138% | 99% / 27% |
 | Class model, the script's own weights | | | +151% | 21.8% | 1.41 | 0.97 | +15.6% (1.7) | 65% | +140% | 99% / 74% |
-
-The class script's backtest, as the script computes it (`original_as_scripted.csv`): growth of $1 to $2.51 against $1.64 for SPY over 34 months; Sharpe ratio 8.84 (1.93 with the monthly factor); alpha 330% a year (15.7% with the monthly factor); beta 0.97.
 
 How noisy the problem is (`difficulty.csv`): in an average month one stock's return differs from the average stock's by 8.6 percentage points (standard deviation), and the improved model's forecasts differ from stock to stock by 0.34 points. The improved model's ten-stock portfolio strays from the 96-stock portfolio by 24.5% a year, so the excess return it showed (17.9% a year) would need to persist for about 7.5 years to reach t = 2; the test period is 2.8 years.
 
