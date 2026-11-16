@@ -19,19 +19,6 @@ Published post: https://1iiiiii.github.io/Personal-Website/blog/posts/post9/
 | `reference/original_XGBoostStockPrediction.R` | the class XGBoost script, unchanged | course materials (Yisroel Cahn) | |
 | `reference/original_stockmarketgameresults.R` | the instructor's analysis of the class results, unchanged | course materials | |
 
-## Replication
-
-Run the notebooks in `code/` in order; each reads the previous ones' output. Paths are built from `Path.cwd().parent`, so run them from `code/` (VS Code's default).
-
-| Notebook | Reads | Writes |
-|---|---|---|
-| `01_fetch.ipynb` | Yahoo Finance (only when `REFETCH = True`) | `data/raw/prices_yahoo.csv`, `fetch_log.json`; `data/processed/price_coverage.csv` |
-| `02_class_experiment.ipynb` | `data/raw/class_experiment_results.xlsx` | `results/tables/class_experiment.csv`, `class_experiment_teams.csv` |
-| `03_original_model.ipynb` | `data/raw/prices_yahoo.csv` | `data/processed/pred_original.csv`; `results/tables/original_as_scripted.csv`, `original_as_scripted_monthly.csv`, `original_feature_importance.csv` |
-| `04_improved_model.ipynb` | `data/raw/prices_yahoo.csv` | `data/processed/calendar.csv`, `panel.csv`, `pred_clean.csv`, `pred_long.csv`, `pred_improved.csv`, `pred_linear.csv`, `pred_momentum.csv`; `results/tables/tuning_grid.csv`, `tuning_choice.json`, `improved_feature_importance.csv` |
-| `05_evaluate.ipynb` | prices, `calendar.csv`, every `pred_*.csv` | `results/tables/predictive.csv`, `investment.csv`, `ic_by_period.csv`, `period_returns.csv`, `daily_returns.csv`, `daily_returns_net.csv`, `random_portfolios.csv`, `random_summary.csv`, `holdings.csv`, `most_held.csv`, `holdings_overlap.csv`, `active_return_correlation.csv`, `difficulty.csv`, `eval_settings.json` |
-| `06_figures.ipynb` | `results/tables/` | `results/figures/fig1_class_experiment.html`, `fig2_growth.html`, `fig3_random_portfolios.html` (also copied into the post folder when the website repository sits next to this one) |
-
 ### The class model as written (`03_original_model.ipynb`)
 
 What the notebook documents and the later notebooks change:
